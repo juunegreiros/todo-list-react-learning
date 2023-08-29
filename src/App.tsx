@@ -11,15 +11,40 @@ function App() {
       <button 
         type="button"
         onClick={() => {
-          setItems([...items, { id: `item-${items.length + 1}`}])
-          console.log(items)
+          setItems([
+            ...items,
+            { 
+              id: `item-${items.length + 1}`,
+              text: '',
+              checked: false,
+            }
+          ])
         }}
       >
         adicionar novo item
       </button>
       {
-        items.map((item) => (
-          <Item id={item.id} key={item.id} />
+        items.map((item, index) => (
+          <Item 
+            id={item.id}
+            key={item.id}
+            text={item.text}
+            checked={item.checked}
+            onCheck={(e) =>{
+              const newItems = [...items]
+              newItems[index].checked = !items[index].checked
+              setItems(newItems)
+            }}
+            onDelete={() => {
+              const newItems = items.filter((newItem) => item.id !== newItem.id)
+              setItems([...newItems])
+            }}
+            onChange={(e) => {
+              const newItems = [...items]
+              newItems[index].text = e.target.value
+              setItems(newItems)
+            }}
+          />
         ))
       }
     </div>
