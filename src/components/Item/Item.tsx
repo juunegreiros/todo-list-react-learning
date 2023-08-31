@@ -7,7 +7,7 @@ type ItemComponentProps = {
   checked: boolean,
   onCheck: () => void,
   text: string,
-  onChange: () => void,
+  onChange: React.ChangeEventHandler<HTMLInputElement>,
   onDelete: () => void
 }
 

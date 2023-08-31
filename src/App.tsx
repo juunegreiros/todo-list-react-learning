@@ -29,6 +29,7 @@ function App() {
       >
         adicionar novo item
       </button>
+
       {
         items.map((item, index) => (
           <Item 
@@ -36,7 +37,7 @@ function App() {
             key={item.id}
             text={item.text}
             checked={item.checked}
-            onCheck={(e) =>{
+            onCheck={() =>{
               const newItems = [...items]
               newItems[index].checked = !items[index].checked
               setItems(newItems)
