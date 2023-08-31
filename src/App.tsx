@@ -1,9 +1,15 @@
 import Item from './components/Item'
 import React from 'react'
 
+type Item = {
+  id: string,
+  text: string,
+  checked: boolean,
+}
+
 function App() {
   // hooks
-  const [items, setItems] = React.useState([])
+  const [items, setItems] = React.useState<Item[]>([])
 
   return (
     <div>
