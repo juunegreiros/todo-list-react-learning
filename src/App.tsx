@@ -1,19 +1,38 @@
-import Item from './components/Item'
+import ItemComponent from './components/Item'
 import React from 'react'
-
-type Item = {
-  id: string,
-  text: string,
-  checked: boolean,
-}
+import GlobalStyle from './config/GlobalStyle'
+import Navbar from './components/Navbar/Navbar'
+import type { Item, Category } from './types/types'
 
 function App() {
   // hooks
-  const [items, setItems] = React.useState<Item[]>([])
+  const [categories, setCategories] = React.useState<Category[]>([])
+  const [activeCategory, setActiveCategory] = React.useState<Category>()
+
+  const onCreateCategory = (category: Category) => {
+    const newCategories = [...categories]
+    newCategories.push(category)
+    setCategories(newCategories)
+  }
+
+  const onUpdateCategoryValue = (categoryIndex: number,  value: string) => {
+    const newCategories = [...categories]
+    newCategories[categoryIndex].text = value
+    setCategories(newCategories)
+  }
 
   return (
     <div>
+      <GlobalStyle/>
+
+      <Navbar
+        categories={categories}
+        onCreateCategory={onCreateCategory}
+        onUpdateCategoryValue={onUpdateCategoryValue}
+      />
+
       <p>Todo list</p>
+{/* 
       <button 
         type="button"
         onClick={() => {
@@ -28,11 +47,11 @@ function App() {
         }}
       >
         adicionar novo item
-      </button>
+      </button> */}
 
-      {
+      {/* {
         items.map((item, index) => (
-          <Item 
+          <ItemComponent 
             id={item.id}
             key={item.id}
             text={item.text}
@@ -53,7 +72,7 @@ function App() {
             }}
           />
         ))
-      }
+      } */}
     </div>
   )
 }

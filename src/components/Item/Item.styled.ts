@@ -11,9 +11,9 @@ const Checkbox = styled.input`
 
 const Label = styled.label<{ isActive: boolean }>`
   align-items: center;
-  background-color: ${(props) => props.isActive ? 'grey' : '#B8B8FF'};
+  background-color: ${(props) => props.isActive ? 'var(--grey)' : 'var(--purple)'};
   border-radius: 12px;
-  color: #F8F7FF;
+  color: var(--white);
   display: flex;
   gap: 8px;
   max-width: 300px;
