@@ -2,7 +2,7 @@ import ItemComponent from './components/Item'
 import React from 'react'
 import GlobalStyle from './config/GlobalStyle'
 import Navbar from './components/Navbar/Navbar'
-import type { Item, Category } from './types/types'
+import type { Category } from './types/types'
 import { Container } from './App.styled'
 
 
@@ -51,8 +51,39 @@ function App() {
 
     setCategories(newCategories)
   }
-  const onUpdateItem = () => {}
-  const onDeleteItem = () => {}
+
+  const onUpdateItemValue = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
+    const newCategories = categories.map((category) => ({
+      ...category,
+      items: category.items.map((categoryItem) => ({
+        ...categoryItem,
+        text: category.active && id === categoryItem.id ? e.target.value : categoryItem.text
+      }))
+    }))
+
+    setCategories(newCategories)
+  }
+
+  const onCheckItem = (id: string) => {
+    const newCategories = categories.map((category) => ({
+      ...category,
+      items: category.items.map((categoryItem) => ({
+        ...categoryItem,
+        checked: category.active && id === categoryItem.id ? !categoryItem.checked : categoryItem.checked
+      }))
+    }))
+
+    setCategories(newCategories)
+  }
+
+  const onDeleteItem = (id: string) => {
+    const newCategories = categories.map((category) => ({
+      ...category,
+      items: category.active ? category.items.filter((categoryItem) => id !== categoryItem.id) : category.items
+    }))
+
+    setCategories(newCategories)
+  }
 
   const activeCategory = categories.find((category) => category.active)
 
@@ -84,28 +115,17 @@ function App() {
         }
   
 
-      {
-        activeCategory && activeCategory?.items?.map((item, index) => (
-          <ItemComponent 
-          id={item.id}
-          key={item.id}
-          text={item.text}
-          checked={item.checked}
-          // onCheck={() =>{
-            //   const newItems = [...items]
-            //   newItems[index].checked = !items[index].checked
-            //   setItems(newItems)
-            // }}
-            // onDelete={() => {
-              //   const newItems = items.filter((newItem) => item.id !== newItem.id)
-              //   setItems([...newItems])
-              // }}
-              // onChange={(e) => {
-                //   const newItems = [...items]
-                //   newItems[index].text = e.target.value
-                //   setItems(newItems)
-                // }}
-                />
+        {
+          activeCategory && activeCategory?.items?.map((item) => (
+            <ItemComponent 
+              id={item.id}
+              key={item.id}
+              text={item.text}
+              checked={item.checked}
+              onCheck={() => onCheckItem(item.id)}
+              onDelete={() => onDeleteItem(item.id)}
+              onChange={(e) => onUpdateItemValue(e, item.id)}
+            />
           ))
         }
       </div>
