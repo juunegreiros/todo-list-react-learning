@@ -6,11 +6,12 @@ type CategoryComponentProps = {
   active: boolean,
   items: Item[],
   onUpdateCategoryValue: (categoryIndex: number,  value: string) => void,
-  index: number
+  index: number,
+  handleActiveCategory: () => void,
 }
 
 const CategoryComponent = (props: CategoryComponentProps) => (
-  <Category.Item>
+  <Category.Item isActive={props.active} onClick={props.handleActiveCategory}>
     <Category.Input
       value={props.text}
       onChange={(e) => props.onUpdateCategoryValue(props.index, e.target.value)}

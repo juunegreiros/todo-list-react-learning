@@ -5,7 +5,8 @@ import type { Category } from '../../types/types'
 type NavbarComponentProps = {
   categories: Category[],
   onCreateCategory: (category: Category) => void,
-  onUpdateCategoryValue: (categoryIndex: number,  value: string) => void
+  onUpdateCategoryValue: (categoryIndex: number,  value: string) => void,
+  handleActiveCategory: (id: string) => void
 }
 
 
@@ -39,6 +40,7 @@ const NavbarComponent = (props: NavbarComponentProps) => (
             items={category.items}
             onUpdateCategoryValue={props.onUpdateCategoryValue}
             index={index}
+            handleActiveCategory={() => props.handleActiveCategory(category.id)}
           />
         ))
       }

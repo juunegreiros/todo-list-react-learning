@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-const Item = styled.li`
+const Item = styled.li<{ isActive: boolean }>`
   align-items: center;
-  background-color: var(--purple); 
+  background-color: ${(props) => props.isActive ? `var(--white)` : `var(--purple)`}; 
   border-radius: 1rem 0rem 0rem 1rem;
   color: var(--white);
   cursor: pointer;
